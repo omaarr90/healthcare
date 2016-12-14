@@ -1,0 +1,17 @@
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+<div class="carousel-inner" role="listbox">
+<div class="item active">
+<img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+<div class="container">
+<div class="carousel-caption">
+<h1>Diagnostics System</h1>
+<p>We are here to help you live a better life. let us know what you feel and we will do the rest. we will try our best to diagnose your illness and recommend the best doctor for you.</p>
+<p><a class="btn btn-lg btn-primary" href="#()" role="button">Sign up today</a></p>
+</div>
+</div>
+</div>
+</div>
+</div><!-- /.carousel -->

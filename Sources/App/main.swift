@@ -3,15 +3,18 @@ import VaporPostgreSQL
 
 let drop = Droplet()
 try drop.addProvider(VaporPostgreSQL.Provider)
+drop.view = LeafRenderer(viewsDir: drop.viewsDir)
 
-drop.get { req in
-    return try drop.view.make("welcome", [
-    	"message": drop.localization[req.lang, "welcome", "title"]
-    ])
+drop.get() { req in
+    return try drop.view.make("welcome")
 }
 
 drop.get("hello") { request in
     return "Hello, world!"
+}
+
+drop.get("testleaf") { request in
+return try drop.view.make("testLeaf")
 }
 
 drop.get("version") { request in

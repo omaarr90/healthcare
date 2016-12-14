@@ -44,7 +44,7 @@ extension Disease: Preparation {
         try database.create("diseases") { users in
             users.id()
             users.string("name")
-            users.entity("doctors")
+//            users.entity("doctors")
         }
     }
     
