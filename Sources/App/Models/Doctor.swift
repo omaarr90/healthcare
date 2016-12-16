@@ -5,14 +5,14 @@ import Foundation
 final class Doctor: Model {
     var id: Node?
     var name: String
-    var hospital: Hospital
+//    var hospital: Hospital
     var email: String
     var phoneNumber: String
     
     init(name: String, hospital: Hospital, email: String, phoneNumber: String) {
         self.id = UUID().uuidString.makeNode()
         self.name = name
-        self.hospital = hospital
+//        self.hospital = hospital
         self.email = email
         self.phoneNumber = phoneNumber
     }
@@ -20,7 +20,7 @@ final class Doctor: Model {
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         name = try node.extract("name")
-        hospital = try node.extract("hospital")
+//        hospital = try node.extract("hospital")
         email = try node.extract("email")
         phoneNumber = try node.extract("phoneNumber")
     }
@@ -29,7 +29,7 @@ final class Doctor: Model {
         return try Node(node: [
             "id": id,
             "name": name,
-            "hospital": hospital.makeNode(),
+//            "hospital": hospital.makeNode(),
             "email": email,
             "phoneNumber": phoneNumber
             ])
@@ -48,10 +48,16 @@ extension Doctor {
 
 extension Doctor: Preparation {
     static func prepare(_ database: Database) throws {
-        //
+        try database.create("doctors") { doctors in
+            doctors.id()
+            doctors.string("name")
+            doctors.string("email")
+            doctors.string("phoneNumber")
+            doctors.parent(Disease.self, optional: false, unique: false, default: nil)
+        }
     }
     
     static func revert(_ database: Database) throws {
-        //
+        try database.delete("doctors")
     }
 }

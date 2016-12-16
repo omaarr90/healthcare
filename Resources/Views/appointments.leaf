@@ -1,0 +1,32 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>Appointments</title>
+
+}
+
+#export("body") {
+#embed("navbar")
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing">
+
+<!-- Three columns of text below the carousel -->
+<div class="row">
+<div class="col-lg-10">
+<img class="img-circle" src="/images/diagnosis.png" alt="Diagnosis" width="140" height="140">
+<h2>Smart Diagnosis</h2>
+<p>Our system is smart to diagnose your disease and recommend the best doctor for you.</p>
+</div><!-- /.col-lg-4 -->
+</div><!-- /.row -->
+
+<hr class="featurette-divider">
+
+#embed("footer")
+
+</div><!-- /.container -->
+}

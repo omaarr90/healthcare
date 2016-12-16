@@ -2,7 +2,7 @@
 
 #export("head") {
 #embed("headercontent")
-	<title>My App</title>
+	<title>Patient Reservation System</title>
 
 }
 
@@ -19,66 +19,24 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-4">
-            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+            <img class="img-circle" src="/images/diagnosis.png" alt="Diagnosis" width="140" height="140">
                 <h2>Smart Diagnosis</h2>
                 <p>Our system is smart to diagnose your disease and recommend the best doctor for you.</p>
                 </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+            <img class="img-circle" src="/images/doctor_ratings.png" alt="Doctor Rating" width="140" height="140">
                 <h2>Doctors Ratings</h2>
                 <p>Each user can rate the doctor he has seen and provide comments and feedback, so everyone knows which doctor to choose.</p>
                 </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+            <img class="img-circle" src="/images/dont_dev.png" alt="Continous Development" width="140" height="140">
                 <h2>Continous Development</h2>
                 <p>Our team work harrds to keep the system up to date. We try our best to include most illness and cover a broad range of doctors</p>
                 </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
     
-    
-    <!-- START THE FEATURETTES -->
-    
     <hr class="featurette-divider">
-    
-    <div class="row featurette">
-        <div class="col-md-7">
-            <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5">
-            <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                </div>
-    </div>
-    
-    <hr class="featurette-divider">
-    
-    <div class="row featurette">
-        <div class="col-md-7 col-md-push-5">
-            <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5 col-md-pull-7">
-            <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                </div>
-    </div>
-    
-    <hr class="featurette-divider">
-    
-    <div class="row featurette">
-        <div class="col-md-7">
-            <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5">
-            <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                </div>
-    </div>
-    
-    <hr class="featurette-divider">
-    
-    <!-- /END THE FEATURETTES -->
-    
-    
+
     #embed("footer")
 </div><!-- /.container -->
 }

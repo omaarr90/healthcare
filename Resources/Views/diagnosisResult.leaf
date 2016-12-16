@@ -18,16 +18,10 @@
 <!-- Three columns of text below the carousel -->
 <div class="row">
 <div class="col-lg-10">
-    <h4 class="bg-danger"> #(error) </h4>
-<h2>What symptos do you have?</h2>
+<h2>It looks like you have</h2>
 
-<form action="diagnosis" method="post">
-    #loop(sympts, "sympt") {
-<div class="checkbox">
-    <label><input type="checkbox" name="checkbox" value="#(sympt.disease_id)">#(sympt.name)</label>
-</div>
-}
-<button type="submit" class="btn btn-primary">Submit</button>
+<h1>#(mainDisease.name)</h1>
+
 
 </form>
 

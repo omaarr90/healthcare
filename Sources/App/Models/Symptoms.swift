@@ -2,33 +2,34 @@ import Vapor
 import Fluent
 import Foundation
 
-final class Symptoms: Model {
+final class Symptom: Model {
     var id: Node?
-    var disease: Disease
-    var symptomsList: [String]
+    var name: String
+    var disease: Int
     
-    init(symptomsList: [String], disease: Disease) {
+    init(name: String, disease: Int) {
         self.id = UUID().uuidString.makeNode()
-        self.symptomsList = symptomsList
+        self.name = name
         self.disease = disease
     }
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
-        symptomsList = try node.extract("symptomsList")
-        disease = try node.extract("disease")
+        name = try node.extract("name")
+        disease = try node.extract("disease_id")
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id": id,
-            "symptomsList": symptomsList.makeNode(),
-            "disease": disease.makeNode()
+            "name": name,
+            "disease_id": disease
             ])
     }
+    
 }
 
-extension Symptoms {
+extension Symptom {
     /**
      This will automatically fetch from database, using example here to load
      automatically for example. Remove on real models.
@@ -38,12 +39,17 @@ extension Symptoms {
 //    }
 }
 
-extension Symptoms: Preparation {
+extension Symptom: Preparation {
     static func prepare(_ database: Database) throws {
-        //
+        try database.create("symptoms") { symptoms in
+            symptoms.id()
+            symptoms.string("name")
+            symptoms.parent(Disease.self, optional: false, unique: false, default: nil)
+        }
     }
     
+    
     static func revert(_ database: Database) throws {
-        //
+        try database.delete("symptoms")
     }
 }

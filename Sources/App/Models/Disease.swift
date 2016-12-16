@@ -5,18 +5,22 @@ import Foundation
 final class Disease: Model {
     var id: Node?
     var name: String
-    var doctors: [Doctor]
+//    var doctors: Children<Doctor>
+//    var symptoms: Children<Symptom>
+//    var exists: Bool = false
     
-    init(name: String, doctors: [Doctor]) {
+    init(name: String) {
         self.id = UUID().uuidString.makeNode()
         self.name = name
-        self.doctors = doctors
+//        self.doctors = self.children(Doctor.self).all()
+//        self.symptoms = symptoms
     }
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         name = try node.extract("name")
-        doctors = try node.extract("doctors")
+//        doctors = try node.extract("doctors")
+//        symptoms = try node.extract("symptoms")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -24,31 +28,40 @@ final class Disease: Model {
         return try Node(node: [
             "id": id,
             "name": name,
-            "doctors": Node(node:doctors)
+//            "doctors": self.c,
+//            "symptoms": Node(node:symptoms)
             ])
     }
 }
 
+
 extension Disease {
-    /**
-     This will automatically fetch from database, using example here to load
-     automatically for example. Remove on real models.
-     */
-    //    public convenience init?(from string: String) throws {
-    //        self.init(content: string)
-    //    }
+    static func mainDisease(symptos: [Int]) throws -> Disease
+    {
+        var mostFrequent = symptos[0]
+        
+        var counts = [Int: Int]()
+        
+        symptos.forEach { counts[$0] = (counts[$0] ?? 0) + 1 }
+        
+        if let (value, _) = counts.max(by: {$0.1 < $1.1}) {
+            mostFrequent = value
+        }
+        
+        return try Disease.find(mostFrequent)!
+        
+    }
 }
 
 extension Disease: Preparation {
     static func prepare(_ database: Database) throws {
-        try database.create("diseases") { users in
-            users.id()
-            users.string("name")
-//            users.entity("doctors")
+        try database.create("diseases") { diseases in
+            diseases.id()
+            diseases.string("name")
         }
     }
     
     static func revert(_ database: Database) throws {
-        //
+        try database.delete("diseases")
     }
 }
