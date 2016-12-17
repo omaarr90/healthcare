@@ -2,25 +2,60 @@
 
 #export("head") {
 #embed("headercontent")
-<title>Appointments</title>
+<title>المواعيد</title>
 
 }
 
 #export("body") {
 #embed("navbar")
 
+<!-- Carousel
+ ================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="first-slide" src="/images/health_bg.jpeg" alt="First slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>المواعيد</h1>
+                        <p>هذه الخدمة تمكنك من حجز موعد لدى افضل الأطباء في أرقى المستشفيات من خلال ضغطة زر فقط.</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div><!-- /.carousel -->
+
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
 
-<div class="container marketing">
+<div class="container marketing pull-right">
 
 <!-- Three columns of text below the carousel -->
 <div class="row">
 <div class="col-lg-10">
-<img class="img-circle" src="/images/diagnosis.png" alt="Diagnosis" width="140" height="140">
-<h2>Smart Diagnosis</h2>
-<p>Our system is smart to diagnose your disease and recommend the best doctor for you.</p>
+    <form action="doctorappointments" method="post">
+        <div class="form-group">
+            <label for="citySelected">أختر المدينة:</label>
+            <select class="form-control" name="citySelected" id="citySelected">
+                #loop(cities, "city") {
+                <option value="#(city.id)">#(city.name)</option>
+                }
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="diseaseSelected">أختر المرض</label>
+            <select class="form-control" name="diseaseSelected" id="diseaseSelected">
+                #loop(diseases, "disease") {
+                <option value="#(disease.id)">#(disease.name)</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary center-block">تأكيد</button>
+
+    </form>
 </div><!-- /.col-lg-4 -->
 </div><!-- /.row -->
 

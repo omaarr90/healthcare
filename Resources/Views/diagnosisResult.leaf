@@ -2,20 +2,39 @@
 
 #export("head") {
 #embed("headercontent")
-<title>Diagnosis</title>
+<title>نتيجة الأعراض</title>
 
 }
 
 #export("body") {
 #embed("navbar")
 
+<!-- Carousel
+ ================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="first-slide" src="/images/health_bg.jpeg" alt="First slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>#(mainDisease.name)</h1>
+                        <p>يبدو أنك تعاني من #(mainDisease.name). ننصحك بمراجعة الطبيب في أقرب فرصة ممكنة لأجراء الفحوصات اللازمة والتأكد من سلامتك.</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div><!-- /.carousel -->
+
+
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
 
-<div class="container marketing">
+<div class="container marketing pull-right">
 
 <!-- Three columns of text below the carousel -->
+<!--
 <div class="row">
 <div class="col-lg-10">
 <h2>It looks like you have</h2>
@@ -25,10 +44,11 @@
 
 </form>
 
-</div><!-- /.col-lg-4 -->
-</div><!-- /.row -->
+</div>
+</div>
 
 <hr class="featurette-divider">
+-->
 
 #embed("footer")
 

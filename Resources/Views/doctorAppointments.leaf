@@ -1,0 +1,58 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>قائمة الأطباء</title>
+
+}
+
+#export("body") {
+#embed("navbar")
+
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+<div class="carousel-inner" role="listbox">
+<div class="item active">
+<img class="first-slide" src="/images/health_bg.jpeg" alt="First slide">
+<div class="container">
+<div class="carousel-caption">
+<h1>قائمة الأطباء</h1>
+<p>هذه الصفحة تعرض الأطباء اللذين يمكنهم معالجة حالتك. لمزيد من المعلومات يرجى الضغط على أحدهم.</p>
+</div>
+</div>
+</div>
+</div>
+</div><!-- /.carousel -->
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing pull-right">
+
+<!-- Three columns of text below the carousel -->
+<div class="row">
+<div class="col-lg-10">
+<h2>هؤلاء الأطباء يمكنهم المساعدة</h2>
+
+#loop(doctors, "doctor") {
+<h1><a href="doctors/#(doctor.id)">#(doctor.name)</a></h1>
+
+}
+
+
+</form>
+
+</div><!-- /.col-lg-4 -->
+</div><!-- /.row -->
+
+<hr class="featurette-divider">
+
+#embed("footer")
+
+</div><!-- /.container -->
+}
+

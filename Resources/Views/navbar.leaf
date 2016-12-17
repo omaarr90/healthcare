@@ -4,9 +4,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li id="homenav" class="active"><a href="/">Home</a></li>
-            <li id="appoinnav" ><a href="appointments">Appointments</a></li>
-            <li id="diagnav" ><a href="diagnosis">Diagnosis</a></li>
+            <li id="homenav" class="active"><a href="/">الرئيسية</a></li>
+            <li id="appoinnav" ><a href="appointments">المواعيد</a></li>
+            <li id="diagnav" ><a href="diagnosis">الأعراض</a></li>
         </ul>
         <div class="col-sm-3 col-md-3">
             <form class="navbar-form" role="search">

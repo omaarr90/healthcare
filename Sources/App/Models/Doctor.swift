@@ -5,45 +5,60 @@ import Foundation
 final class Doctor: Model {
     var id: Node?
     var name: String
-//    var hospital: Hospital
+    var hospital: String
     var email: String
     var phoneNumber: String
+    var spciality: String
     
-    init(name: String, hospital: Hospital, email: String, phoneNumber: String) {
+    var comments: [Comment] {
+        get {
+            do {
+                return try Comment.query().filter("doctor_id", self.id!).all()
+            } catch {
+                return []
+            }
+        }
+    }
+    
+    init(name: String, hospital: String, email: String, phoneNumber: String, city: Int, spciality: String) {
         self.id = UUID().uuidString.makeNode()
         self.name = name
-//        self.hospital = hospital
+        self.hospital = hospital
         self.email = email
         self.phoneNumber = phoneNumber
+        self.spciality = spciality
+//        self.city = city
     }
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         name = try node.extract("name")
-//        hospital = try node.extract("hospital")
+        hospital = try node.extract("hospital")
         email = try node.extract("email")
-        phoneNumber = try node.extract("phoneNumber")
+        phoneNumber = try node.extract("phonenumber")
+        spciality = try node.extract("spciality")
+//        city = try node.extract("city")
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id": id,
             "name": name,
-//            "hospital": hospital.makeNode(),
+            "hospital": hospital,
             "email": email,
-            "phoneNumber": phoneNumber
+            "phonenumber": phoneNumber,
+            "spciality": spciality,
+            "comments": comments.makeNode()
+//            "city": city
             ])
     }
 }
 
 extension Doctor {
-    /**
-     This will automatically fetch from database, using example here to load
-     automatically for example. Remove on real models.
-     */
-//    public convenience init?(from string: String) throws {
-//        self.init(content: string)
-//    }
+    static func doctors(for disease: String, in city: String) throws -> [Doctor]  {
+        return try Doctor.query().filter("disease_id", disease).filter("city_id", city).all()
+    }
+    
 }
 
 extension Doctor: Preparation {
@@ -52,8 +67,11 @@ extension Doctor: Preparation {
             doctors.id()
             doctors.string("name")
             doctors.string("email")
-            doctors.string("phoneNumber")
+            doctors.string("phonenumber")
+            doctors.string("hospital")
+            doctors.string("spciality")
             doctors.parent(Disease.self, optional: false, unique: false, default: nil)
+            doctors.parent(City.self, optional: false, unique: false, default: nil)
         }
     }
     

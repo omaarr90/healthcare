@@ -3,15 +3,11 @@ import VaporPostgreSQL
 
 let drop = Droplet()
 try drop.addProvider(VaporPostgreSQL.Provider)
-drop.preparations = [Doctor.self, Symptom.self, Disease.self]
+drop.preparations = [Doctor.self, Symptom.self, Disease.self, City.self, Appointment.self, Comment.self]
 drop.view = LeafRenderer(viewsDir: drop.viewsDir)
 
 drop.get() { req in
     return try drop.view.make("welcome")
-}
-
-drop.get("hello") { request in
-    return "Hello, world!"
 }
 
 drop.get("diagnosis") { request in
@@ -32,28 +28,29 @@ drop.post("diagnosis") { request in
     
     let mainDisease = try Disease.mainDisease(symptos: options)
     
-//    return "Hello, \(options)"
     return try drop.view.make("diagnosisResult", Node(node: ["mainDisease": mainDisease]))
 }
 
 drop.get("appointments") { request in
-    return try drop.view.make("appointments")
+    let cities = try City.all().makeNode()
+    let diseases = try Disease.all().makeNode()
+    return try drop.view.make("appointments", Node(node: ["cities": cities,
+                                                          "diseases": diseases]))
 }
 
-drop.get("testleaf") { request in
-return try drop.view.make("testLeaf")
-}
-
-drop.get("version") { request in
-    if let db = drop.database?.driver as? PostgreSQLDriver {
-        let version = try db.raw("SELECT version()")
-        return try JSON(node: version)
-    } else {
-        return "No DB Connection"
+drop.post("doctorappointments") { request in
+    guard let city = request.data["citySelected"]?.string, let disease = request.data["diseaseSelected"]?.string   else {
+        throw Abort.badRequest
     }
+    
+    let doctors = try Doctor.doctors(for: disease, in: city).makeNode()
+    return try drop.view.make("doctorAppointments", Node(node: ["doctors": doctors]))
 }
 
+drop.get("doctors", Int.self) { request, doctorID in
+    let doctor = try Doctor.query().filter("id", doctorID).first()
+    return try drop.view.make("doctor", Node(node: ["doctor": doctor]))
 
-drop.resource("posts", PostController())
+}
 
 drop.run()

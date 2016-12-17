@@ -1,0 +1,60 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>#(doctor.name)</title>
+
+}
+
+#export("body") {
+#embed("navbar")
+
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+<div class="carousel-inner" role="listbox">
+<div class="item active">
+<img class="first-slide" src="/images/bg2.jpeg" alt="First slide">
+<div class="container">
+<div class="carousel-caption">
+<h1>#(doctor.name)</h1>
+<img src="/images/default-avatar.png" alt="Circle Image" class="img-circle img-responsive center-block">
+    <br />
+<p>#(doctor.hospital)</p></ br>
+<p>#(doctor.spciality)</p>
+</div>
+</div>
+</div>
+</div>
+</div><!-- /.carousel -->
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing pull-right">
+
+<!-- Three columns of text below the carousel -->
+<div class="row">
+<div class="col-lg-10">
+    <h2>التعليقات</h2>
+        #loop(doctor.comments, "comment") {
+        <div class="well well-lg">
+        <p>#(comment.name)</p>
+        </div>
+        }
+
+</form>
+
+</div><!-- /.col-lg-4 -->
+</div><!-- /.row -->
+
+<hr class="featurette-divider">
+
+#embed("footer")
+
+</div><!-- /.container -->
+}
+

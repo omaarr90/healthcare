@@ -8,30 +8,46 @@
 
 #export("body") {
 #embed("navbar")
-#embed("carousel")
+
+<!-- Carousel
+ ================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="first-slide" src="/images/health_bg.jpeg" alt="First slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>صحتي</h1>
+                        <p>أهلاٍ بك في موقع صحتي. هذا الموقع يمكنك من حجز مواعيدك لدى أفضل الأطباء في المملكة. كما يمكنك من تشخيص حالتك المرضية. </p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div><!-- /.carousel -->
 
 <!-- Marketing messaging and featurettes
  ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
 
-<div class="container marketing">
+<div class="container marketing pull-right">
     
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-4">
             <img class="img-circle" src="/images/diagnosis.png" alt="Diagnosis" width="140" height="140">
-                <h2>Smart Diagnosis</h2>
-                <p>Our system is smart to diagnose your disease and recommend the best doctor for you.</p>
+                <h2>تشخيص ذكي</h2>
+                <p>صمم نظامنا كي يعمل بذكاء على تشخيص حالتك المرضية من خلال تزويدنا بالاعراض اللتي تشتكي منها</p>
                 </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <img class="img-circle" src="/images/doctor_ratings.png" alt="Doctor Rating" width="140" height="140">
-                <h2>Doctors Ratings</h2>
-                <p>Each user can rate the doctor he has seen and provide comments and feedback, so everyone knows which doctor to choose.</p>
+                <h2>تقييم الأطباء</h2>
+                <p>نظامنا يمكن المرضى من تقييم الأطباء بعد مراجعتهم حتى يتسنى للجميع اختيار افضل طبيب لمعالجة حالته الصحية</p>
                 </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <img class="img-circle" src="/images/dont_dev.png" alt="Continous Development" width="140" height="140">
-                <h2>Continous Development</h2>
-                <p>Our team work harrds to keep the system up to date. We try our best to include most illness and cover a broad range of doctors</p>
+                <h2>تطوير مستمر</h2>
+                <p>فريقنا يعمل بجهد كبير كي يبقي النظام على أعلى المستويات حتى نتمكن من خدمتكم بأفضل شكل ممكن</p>
                 </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
     
