@@ -21,7 +21,7 @@ final class Doctor: Model {
     }
     
     init(name: String, hospital: String, email: String, phoneNumber: String, city: Int, spciality: String) {
-        self.id = UUID().uuidString.makeNode()
+        self.id = nil //UUID().uuidString.makeNode()
         self.name = name
         self.hospital = hospital
         self.email = email

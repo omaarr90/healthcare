@@ -1,0 +1,66 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>#(doctor.name)</title>
+
+}
+
+#export("body") {
+#embed("navbar")
+
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+<div class="carousel-inner" role="listbox">
+<div class="item active">
+<img class="first-slide" src="/images/bg2.jpeg" alt="First slide">
+<div class="container">
+<div class="carousel-caption">
+<h1>تم تأكيد الموعد</h1>
+<br />
+<p>شكرا لك لقد تم تأكيد الموعد</p></ br>
+</div>
+</div>
+</div>
+</div>
+</div><!-- /.carousel -->
+
+<div class="container marketing pull-right">
+    
+    <div class="row">
+        <div class="col-lg-10">
+            <form action="/cancelAppointment" method="post">
+                <div class="form-group">
+                <label for="comment">يمكنك الغاء الموعد بالضغط على الزر أدناه</label>
+                <input type="hidden" name="token" value="#(token)">
+                    <button type="submit" class="btn btn-primary center-block">إلغاء الموعد</button>
+                    
+                    </form>
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+    
+    <div class="row">
+        <div class="col-lg-10">
+            <form action="/postComment" method="post">
+                <div class="form-group">
+                    <label for="comment">هل انتهيت من زيارة الدكتور؟ أعطنا انطباعك</label>
+                    <input type="email" class="form-control" name="comment" id="comment" placeholder="تعليقك">
+                        </div>
+                <input type="hidden" name="doctor_id" value="#(doctor_id)">
+                <button type="submit" class="btn btn-primary center-block">تأكيد</button>
+                
+            </form>
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+</div><!-- /.Marketing -->
+
+<hr class="featurette-divider">
+
+
+#embed("footer")
+
+</div><!-- /.container -->
+}

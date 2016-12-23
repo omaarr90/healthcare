@@ -5,29 +5,25 @@ import Foundation
 final class Comment: Model {
     var id: Node?
     var name: String
-    //    var doctors: Children<Doctor>
-    //    var symptoms: Children<Symptom>
-    //    var exists: Bool = false
+    var doctorID: Node?
     
-    init(name: String) {
-        self.id = UUID().uuidString.makeNode()
+    init(name: String, doctorID: Node? = nil) {
+        self.id = nil //UUID().uuidString.makeNode()
         self.name = name
-        //        self.doctors = self.children(Doctor.self).all()
-        //        self.symptoms = symptoms
+        self.doctorID = doctorID
     }
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         name = try node.extract("name")
-        //        doctors = try node.extract("doctors")
-        //        symptoms = try node.extract("symptoms")
+        doctorID = try node.extract("doctor_id")
     }
     
     func makeNode(context: Context) throws -> Node {
-        
         return try Node(node: [
             "id": id,
             "name": name,
+            "doctor_id": doctorID
             ])
     }
 }

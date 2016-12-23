@@ -7,19 +7,25 @@ final class Appointment: Model {
     var date: String
     var time: String
     var doctor: Int
+    var status: String // available, booked, confirmed
+    var token: String?
     
-    init(date: String, time: String, doctor: Int) {
+    init(date: String, time: String, doctor: Int, status: String, token: String) {
         self.id = UUID().uuidString.makeNode()
         self.date = date
         self.time = time
         self.doctor = doctor
+        self.status = status
+        self.token = token
     }
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         date = try node.extract("date")
         time = try node.extract("time")
-        doctor = try node.extract("doctor")
+        doctor = try node.extract("doctor_id")
+        status = try node.extract("status")
+        token = try node.extract("token")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -28,7 +34,9 @@ final class Appointment: Model {
             "id": id,
             "date": date,
             "time": time,
-            "doctor": doctor
+            "status": status,
+            "doctor_id": doctor,
+            "token": token
             ])
     }
 }
@@ -43,6 +51,8 @@ extension Appointment: Preparation {
             appointments.id()
             appointments.string("date")
             appointments.string("time")
+            appointments.string("status")
+            appointments.string("token", length: 1000, optional: true, unique: true, default: nil)
             appointments.parent(Doctor.self, optional: false, unique: false, default: nil)
         }
     }
