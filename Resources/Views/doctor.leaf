@@ -64,7 +64,7 @@
     <div class="row">
         <div class="col-lg-10">
             <h2>التعليقات</h2>
-            #loop(doctor.comments, "comment") {
+            #loop(comments, "comment") {
             <div class="well well-lg">
                 <p>#(comment.name)</p>
             </div>

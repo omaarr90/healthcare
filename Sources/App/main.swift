@@ -56,8 +56,9 @@ drop.post("doctorappointments") { request in
 
 drop.get("doctors", Int.self) { request, doctorID in
     let doctor = try Doctor.query().filter("id", doctorID).first()
+    let comments = try Comment.query().filter("doctor_id", doctorID).all().makeNode()
     let appointments = try Appointment.query().filter("doctor_id", (doctor!.id!)).all().makeNode()
-    return try drop.view.make("doctor", Node(node: ["doctor": doctor, "appointments": appointments]))
+    return try drop.view.make("doctor", Node(node: ["doctor": doctor, "appointments": appointments, "comments": comments]))
 
 }
 

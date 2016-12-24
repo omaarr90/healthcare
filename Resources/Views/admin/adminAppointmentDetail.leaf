@@ -1,0 +1,42 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container pull-right">
+
+<!-- Three columns of text below the carousel -->
+<h1>#(doctor.name)</h1>
+<form action="/admin/appointments/editAppointment" method="post">
+<div class="form-group">
+<input type="hidden" name="appointment_id" value="#(appointment.id)">
+    <input class="form-control" type="text" name="appointment_date" value="#(appointment.date)" />
+    <input class="form-control" type="text" name="appointment_time" value="#(appointment.time)" />
+    <input class="form-control" type="text" name="appointment_status" value="#(appointment.status)" />
+</div>
+<button type="submit" class="btn btn-primary center-block">تعديل</button>
+</form>
+
+<form action="/admin/appointments/deleteAppointment" method="post">
+<div class="form-group">
+<input type="hidden" name="appointment_id" value="#(appointment.id)">
+</div>
+<button type="submit" class="btn btn-danger center-block">حذف الموعد</button>
+</form>
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

@@ -50,7 +50,7 @@
 
 <form action="/admin/doctors/addDoctor" method="post">
 <div class="form-group">
-    <input class="form-control" type="text" name="dcotor_name" value="اسم الدكتور">
+    <input class="form-control" type="text" name="doctor_name" value="اسم الدكتور">
         <input class="form-control" type="text" name="doctor_email" value="البريد الالكتروني">
             <input class="form-control" type="text" name="doctor_phonenumber" value="رقم الهاتف">
                 <input class="form-control" type="text" name="doctor_hospital" value="المستشفى">

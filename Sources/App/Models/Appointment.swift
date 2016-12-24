@@ -6,12 +6,13 @@ final class Appointment: Model {
     var id: Node?
     var date: String
     var time: String
-    var doctor: Int
+    var doctor: Node?
     var status: String // Available, Booked, Confirmed
     var token: String?
+    var doctor_id: Node?
     
-    init(date: String, time: String, doctor: Int, status: String, token: String) {
-        self.id = UUID().uuidString.makeNode()
+    init(date: String, time: String, doctor: Node?, status: String = "Available", token: String?) {
+        self.id = nil //UUID().uuidString.makeNode()
         self.date = date
         self.time = time
         self.doctor = doctor

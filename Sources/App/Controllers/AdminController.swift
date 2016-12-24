@@ -34,6 +34,20 @@ class AdminController
         drop.post("/admin/symptoms/deleteSymptom", handler: deleteSymptom)
         drop.post("/admin/symptoms/editSymptom", handler: editSymptom)
 
+        //Doctors
+        drop.get("/admin/doctors", handler: doctors)
+        drop.get("/admin/doctors/:doctorID", handler: doctorDetails)
+        drop.post("/admin/doctors/addDoctor", handler: addDoctor)
+        drop.post("/admin/doctors/deleteDoctor", handler: deleteDoctor)
+        drop.post("/admin/doctors/editDoctor", handler: editDoctor)
+
+        //Appointments
+        drop.get("/admin/appointments", handler: appointments)
+        drop.get("/admin/appointments/:appointmentID", handler: appointmentDetails)
+        drop.post("/admin/appointments/addAppointment", handler: addAppointment)
+        drop.post("/admin/appointments/deleteAppointment", handler: deleteAppointment)
+        drop.post("/admin/appointments/editAppointment", handler: editAppointment)
+
     }
     
     
@@ -220,24 +234,24 @@ class AdminController
         let diseases = try Disease.query().all().makeNode()
         let cities = try City.query().all().makeNode()
         
-        return try drop.view.make("/admin/addminDoctorDetail", Node(node: ["diseases": diseases, "doctor": doctor, "cities": cities]))
+        return try drop.view.make("/admin/adminDoctorDetail", Node(node: ["diseases": diseases, "doctor": doctor, "cities": cities]))
         
     }
     
     func addDoctor(request: Request) throws -> ResponseRepresentable
     {
         let doctorName = request.data["doctor_name"]?.string
-        let doctorEmail = request.data["docctor_email"]?.string
+        let doctorEmail = request.data["doctor_email"]?.string
         let doctorPhoneNumber = request.data["doctor_phonenumber"]?.string
         let doctorHospital = request.data["doctor_hospital"]?.string
         let doctorSpciality = request.data["doctor_spciality"]?.string
         
         let diseaseID = request.data["diseaseSelected"]?.int
         let disease = try Disease.query().filter("id", diseaseID!).first()
-
+        
         let cityID = request.data["citySelected"]?.int
         let city = try City.query().filter("id", cityID!).first()
-
+        
         var doctor = Doctor(name: doctorName!, hospital: doctorHospital!, email: doctorEmail!, phoneNumber: doctorPhoneNumber!, city: city?.id, spciality: doctorSpciality!, disease: disease?.id)
         
         try doctor.save()
@@ -261,7 +275,7 @@ class AdminController
         let doctorID = request.data["doctor_id"]?.int
         
         let doctorName = request.data["doctor_name"]?.string
-        let doctorEmail = request.data["docctor_email"]?.string
+        let doctorEmail = request.data["doctor_email"]?.string
         let doctorPhoneNumber = request.data["doctor_phonenumber"]?.string
         let doctorHospital = request.data["doctor_hospital"]?.string
         let doctorSpciality = request.data["doctor_spciality"]?.string
@@ -285,7 +299,79 @@ class AdminController
         
         try doctor.save()
         
-        let response = Response(redirect: "/admin/doctor")
+        let response = Response(redirect: "/admin/doctors")
+        return response
+    }
+
+    
+    //Appointments
+    func appointments(request: Request) throws -> ResponseRepresentable
+    {
+        let doctors = try Doctor.query().all().makeNode()
+        let appointments = try Appointment.query().all().makeNode()
+        return try drop.view.make("/admin/adminAppointments", Node(node: ["appointments": appointments, "doctors": doctors]))
+    }
+    
+    func appointmentDetails(request: Request) throws -> ResponseRepresentable
+    {
+        let appointmentID = request.parameters["appointmentID"]?.int ?? 0
+        let appointment = try Appointment.query().filter("id", appointmentID).all().first
+        let doctor = try Doctor.query().filter("id", (appointment?.doctor)!).first()?.makeNode()
+        let appointmentNode = try appointment?.makeNode()
+        
+        return try drop.view.make("/admin/adminAppointmentDetail", Node(node: ["appointment": appointmentNode, "doctor": doctor]))
+        
+    }
+    
+    func addAppointment(request: Request) throws -> ResponseRepresentable
+    {
+        let appointmentTime = request.data["appointment_time"]?.string
+        let appointmentDate = request.data["appointment_date"]?.string
+        
+        let doctorID = request.data["doctorSelected"]?.int
+        let doctor = try Doctor.query().filter("id", doctorID!).first()
+        
+        
+        var appointment = Appointment(date: appointmentDate!, time: appointmentTime!, doctor: doctor?.id, token: nil)
+        
+        try appointment.save()
+        
+        let response = Response(redirect: "/admin/appointments")
+        return response
+    }
+    
+    func deleteAppointment(request: Request) throws -> ResponseRepresentable
+    {
+        let appointmentID = request.data["appointment_id"]?.int
+        let appointment = try Appointment.query().filter("id", appointmentID!)
+        try appointment.delete()
+        
+        let response = Response(redirect: "/admin/appointments")
+        return response
+    }
+    
+    func editAppointment(request: Request) throws -> ResponseRepresentable
+    {
+        let appointmentID = request.data["appointment_id"]?.int
+        
+        let appointmentTime = request.data["appointment_time"]?.string
+        let appointmentDate = request.data["appointment_date"]?.string
+        let appointmentStatus = request.data["appointment_status"]?.string
+        
+        
+        var appointment = try Appointment.query().filter("id", appointmentID!).all().first!
+        
+        appointment.date = appointmentDate!
+        appointment.time = appointmentTime!
+        appointment.status = appointmentStatus!
+        
+        if appointmentStatus! == "Available" {
+            appointment.token = nil
+        }
+        
+        try appointment.save()
+        
+        let response = Response(redirect: "/admin/appointments")
         return response
     }
 

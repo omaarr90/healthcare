@@ -52,7 +52,7 @@ final class Doctor: Model {
             "email": email,
             "phonenumber": phoneNumber,
             "spciality": spciality,
-            "comments": comments.makeNode(),
+//            "comments": comments.makeNode(),
             "city_id": city,
             "disease_id": disease
             ])
