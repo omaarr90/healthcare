@@ -1,0 +1,45 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+ ================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container pull-right">
+    
+    <!-- Three columns of text below the carousel -->
+    <h1>#(symptom.name)</h1>
+    <form action="/admin/symptoms/editSymptom" method="post">
+        <div class="form-group">
+            <input type="hidden" name="symptom_id" value="#(symptom.id)">
+                <input class="form-control" type="text" name="symptom_name" value="#(symptom.name)">
+                    <select class="form-control" name="diseaseSelected" id="diseaseSelected">
+                        #loop(diseases, "disease") {
+                        <option value="#(disease.id)">#(disease.name)</option>
+                        }
+                    </select>
+        </div>
+        <button type="submit" class="btn btn-primary center-block">تعديل</button>
+    </form>
+    
+    <form action="/admin/symptoms/deleteSymptom" method="post">
+        <div class="form-group">
+            <input type="hidden" name="symptom_id" value="#(symptom.id)">
+        </div>
+        <button type="submit" class="btn btn-danger center-block">حذف العرض</button>
+    </form>
+    
+    <hr class="featurette-divider">
+    
+    #embed("footer")
+</div><!-- /.container -->
+}

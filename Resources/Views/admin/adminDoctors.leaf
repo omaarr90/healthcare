@@ -1,0 +1,76 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container">
+
+<!-- Three columns of text below the carousel -->
+<h1>قائمة الأمراض</h1>
+<table class="table table-reflow">
+<thead>
+<tr>
+<th>الرقم التسلسلي</th>
+<th>اسم الطبيب</th>
+<th>البريد الالكتروني</th>
+<th>رقم الهاتف</th>
+<th>المستشفى</th>
+<th>التخصص</th>
+<th>رقم المرض</th>
+<th>رقم المدينة</th>
+</tr>
+</thead>
+<tbody>
+#loop(doctors, "doctor") {
+<tr>
+<th scope="row">#(doctor.id)</th>
+<td><a href="/admin/doctors/#(doctor.id)"/>#(doctor.name)</td>
+<td>#(doctor.email)</td>
+<td>#(doctor.phonenumber)</td>
+<td>#(doctor.hospital)</td>
+<td>#(doctor_spciality)</td>
+<td><a href="/admin/diseases/#(doctor.disease_id)"/>#(doctor.disease_id)</td>
+<td><a href="/admin/cities/#(doctor.city_id)"/>#(doctor.city_id)</td>
+<td></td>
+</tr>
+}
+</tbody>
+</table>
+
+<form action="/admin/doctors/addDoctor" method="post">
+<div class="form-group">
+    <input class="form-control" type="text" name="dcotor_name" value="اسم الدكتور">
+        <input class="form-control" type="text" name="doctor_email" value="البريد الالكتروني">
+            <input class="form-control" type="text" name="doctor_phonenumber" value="رقم الهاتف">
+                <input class="form-control" type="text" name="doctor_hospital" value="المستشفى">
+                    <input class="form-control" type="text" name="doctor_spciality" value="التخصص">
+                        <select class="form-control" name="diseaseSelected" id="diseaseSelected">
+                            #loop(diseases, "disease") {
+                            <option value="#(disease.id)">#(disease.name)</option>
+                            }
+                        </select>
+                        <select class="form-control" name="citySelected" id="diseaseSelected">
+                            #loop(cities, "city") {
+                            <option value="#(city.id)">#(city.name)</option>
+                            }
+                        </select>
+</div>
+<button type="submit" class="btn btn-primary center-block">إضافة طبيب</button>
+</form>
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

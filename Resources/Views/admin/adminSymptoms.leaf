@@ -1,0 +1,57 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+ ================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container">
+    
+    <!-- Three columns of text below the carousel -->
+    <h1>قائمة الأمراض</h1>
+    <table class="table table-reflow">
+        <thead>
+            <tr>
+                <th>الرقم التسلسلي</th>
+                <th>اسم العرض</th>
+                <th>رقم المرض</th>
+            </tr>
+        </thead>
+        <tbody>
+            #loop(symptoms, "symptom") {
+            <tr>
+                <th scope="row">#(symptom.id)</th>
+                <td><a href="/admin/symptoms/#(symptom.id)"/>#(symptom.name)</td>
+                <td><a href="/admin/diseases/#(symptom.disease_id)"/>#(symptom.disease_id)</td>
+                <td></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    
+    <form action="/admin/symptoms/addSymptom" method="post">
+        <div class="form-group">
+            <input class="form-control" type="text" name="symptom_name" value="اسم العرض">
+                <select class="form-control" name="diseaseSelected" id="diseaseSelected">
+                    #loop(diseases, "disease") {
+                    <option value="#(disease.id)">#(disease.name)</option>
+                    }
+                </select>
+        </div>
+        <button type="submit" class="btn btn-primary center-block">إضافة عرض</button>
+    </form>
+    
+    <hr class="featurette-divider">
+    
+    #embed("footer")
+</div><!-- /.container -->
+}

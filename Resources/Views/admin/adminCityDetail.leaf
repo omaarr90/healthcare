@@ -1,0 +1,40 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container pull-right">
+
+<!-- Three columns of text below the carousel -->
+<h1>#(city.name)</h1>
+<form action="/admin/cities/editCity" method="post">
+    <div class="form-group">
+            <input type="hidden" name="city_id" value="#(city.id)">
+            <input class="form-control" type="text" name="city_name" value="#(city.name)">
+    </div>
+    <button type="submit" class="btn btn-primary center-block">تعديل</button>
+</form>
+
+<form action="/admin/cities/deleteCity" method="post">
+    <div class="form-group">
+        <input type="hidden" name="city_id" value="#(city.id)">
+    </div>
+    <button type="submit" class="btn btn-danger center-block">حذف المدينة</button>
+</form>
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

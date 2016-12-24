@@ -7,7 +7,7 @@ final class Appointment: Model {
     var date: String
     var time: String
     var doctor: Int
-    var status: String // available, booked, confirmed
+    var status: String // Available, Booked, Confirmed
     var token: String?
     
     init(date: String, time: String, doctor: Int, status: String, token: String) {

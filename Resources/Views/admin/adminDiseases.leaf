@@ -1,0 +1,50 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container">
+
+<!-- Three columns of text below the carousel -->
+<h1>قائمة الأمراض</h1>
+<table class="table table-reflow">
+<thead>
+<tr>
+<th>الرقم التسلسلي</th>
+<th>اسم المدينة</th>
+</tr>
+</thead>
+<tbody>
+#loop(diseases, "disease") {
+<tr>
+<th scope="row">#(disease.id)</th>
+<td><a href="/admin/diseases/#(disease.id)"/>#(disease.name)</td>
+<td></td>
+</tr>
+}
+</tbody>
+</table>
+
+<form action="/admin/diseases/addDisease" method="post">
+<div class="form-group">
+<input class="form-control" type="text" name="disease_name" value="اسم المرض">
+</div>
+<button type="submit" class="btn btn-primary center-block">إضافة مرض</button>
+</form>
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

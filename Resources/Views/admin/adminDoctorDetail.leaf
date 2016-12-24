@@ -1,0 +1,54 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container pull-right">
+
+<!-- Three columns of text below the carousel -->
+<h1>#(doctor.name)</h1>
+<form action="/admin/doctors/editDoctor" method="post">
+<div class="form-group">
+<input type="hidden" name="doctor_id" value="#(doctor.id)">
+    <input class="form-control" type="text" name="doctor_name" value="#(doctor.name)" />
+    <input class="form-control" type="text" name="doctor_email" value="#(doctor.email)" />
+    <input class="form-control" type="text" name="doctor_phonenumber" value="#(doctor.phonenumber)" />
+    <input class="form-control" type="text" name="doctor_hospital" value="#(doctor.hospital)" />
+    <input class="form-control" type="text" name="doctor_spciality" value="#(doctor.spciality)" />
+    <select class="form-control" name="diseaseSelected" id="diseaseSelected">
+        #loop(diseases, "disease") {
+        <option value="#(disease.id)">#(disease.name)</option>
+        }
+    </select>
+    <select class="form-control" name="citySelected" id="diseaseSelected">
+        #loop(cities, "city") {
+        <option value="#(city.id)">#(city.name)</option>
+        }
+    </select>
+</div>
+<button type="submit" class="btn btn-primary center-block">تعديل</button>
+</form>
+
+<form action="/admin/doctors/deleteDoctor" method="post">
+<div class="form-group">
+<input type="hidden" name="doctor_id" value="#(doctor.id)">
+</div>
+<button type="submit" class="btn btn-danger center-block">حذف الطبيب</button>
+</form>
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

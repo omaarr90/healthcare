@@ -5,10 +5,10 @@ import Foundation
 final class Symptom: Model {
     var id: Node?
     var name: String
-    var disease: Int
+    var disease: Node?
     
-    init(name: String, disease: Int) {
-        self.id = UUID().uuidString.makeNode()
+    init(name: String, disease: Node?) {
+        self.id = nil // UUID().uuidString.makeNode()
         self.name = name
         self.disease = disease
     }

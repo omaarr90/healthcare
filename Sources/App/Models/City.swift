@@ -5,12 +5,9 @@ import Foundation
 final class City: Model {
     var id: Node?
     var name: String
-    //    var doctors: Children<Doctor>
-    //    var symptoms: Children<Symptom>
-    //    var exists: Bool = false
     
     init(name: String) {
-        self.id = UUID().uuidString.makeNode()
+        self.id = nil //UUID().uuidString.makeNode()
         self.name = name
         //        self.doctors = self.children(Doctor.self).all()
         //        self.symptoms = symptoms

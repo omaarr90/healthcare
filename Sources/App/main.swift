@@ -10,6 +10,9 @@ drop.view = LeafRenderer(viewsDir: drop.viewsDir)
 
 //try MailClient.sendTestEmail()
 
+AdminController(drop: drop)
+
+
 drop.get() { req in
     return try drop.view.make("welcome")
 }
@@ -65,7 +68,7 @@ drop.post("selectAppointment") { request in
     
     var appointment = try Appointment.query().filter("id", appointmentID).all().first
     
-    if appointment?.status != "Available" {
+    if appointment?.status != "Avaliable" {
         return try drop.view.make("appointmentConfirmation", Node(node: ["title": "الموعد غير متاح", "message": "لقد تم حجز هذا الموعد مسبقا من فضلك قم بحجز موعد اخر"]))
     }
     
@@ -125,5 +128,6 @@ drop.post("cancelAppointment") { request in
     
     return try drop.view.make("cancelAppointment")
 }
+
 
 drop.run()

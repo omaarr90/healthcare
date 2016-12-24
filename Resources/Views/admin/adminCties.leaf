@@ -1,0 +1,50 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container">
+
+<!-- Three columns of text below the carousel -->
+    <h1>قائمة المدن</h1>
+    <table class="table table-reflow">
+        <thead>
+            <tr>
+                <th>الرقم التسلسلي</th>
+                <th>اسم المدينة</th>
+            </tr>
+        </thead>
+        <tbody>
+            #loop(cities, "city") {
+            <tr>
+                <th scope="row">#(city.id)</th>
+                <td><a href="/admin/cities/#(city.id)"/>#(city.name)</td>
+                <td></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    
+    <form action="/admin/cities/addCity" method="post">
+        <div class="form-group">
+                <input class="form-control" type="text" name="city_name" value="اسم المدينة">
+                    </div>
+        <button type="submit" class="btn btn-primary center-block">إضافة مدينة</button>
+    </form>
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

@@ -1,0 +1,27 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing pull-right">
+
+<h1> <a href="/admin/cities"/>التحكم بالمدن</h1>
+    <h1> <a href="/admin/diseases"/>التحكم بالامراض</h1>
+
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

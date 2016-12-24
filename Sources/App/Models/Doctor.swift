@@ -9,6 +9,8 @@ final class Doctor: Model {
     var email: String
     var phoneNumber: String
     var spciality: String
+    var city: Node?
+    var disease: Node?
     
     var comments: [Comment] {
         get {
@@ -20,14 +22,15 @@ final class Doctor: Model {
         }
     }
     
-    init(name: String, hospital: String, email: String, phoneNumber: String, city: Int, spciality: String) {
+    init(name: String, hospital: String, email: String, phoneNumber: String, city: Node?, spciality: String, disease: Node?) {
         self.id = nil //UUID().uuidString.makeNode()
         self.name = name
         self.hospital = hospital
         self.email = email
         self.phoneNumber = phoneNumber
         self.spciality = spciality
-//        self.city = city
+        self.city = city
+        self.disease = disease
     }
     
     init(node: Node, in context: Context) throws {
@@ -37,7 +40,8 @@ final class Doctor: Model {
         email = try node.extract("email")
         phoneNumber = try node.extract("phonenumber")
         spciality = try node.extract("spciality")
-//        city = try node.extract("city")
+        city = try node.extract("city_id")
+        disease = try node.extract("disease_id")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -48,8 +52,9 @@ final class Doctor: Model {
             "email": email,
             "phonenumber": phoneNumber,
             "spciality": spciality,
-            "comments": comments.makeNode()
-//            "city": city
+            "comments": comments.makeNode(),
+            "city_id": city,
+            "disease_id": disease
             ])
     }
 }
