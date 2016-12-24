@@ -2,15 +2,20 @@ import Vapor
 import VaporPostgreSQL
 import Foundation
 import HTTP
+import Cookies
+import Turnstile
+import TurnstileCrypto
+import TurnstileWeb
+import Auth
 
 let drop = Droplet()
 try drop.addProvider(VaporPostgreSQL.Provider)
-drop.preparations = [Doctor.self, Symptom.self, Disease.self, City.self, Appointment.self, Comment.self]
+drop.preparations = [Doctor.self, Symptom.self, Disease.self, City.self, Appointment.self, Comment.self, User.self]
 drop.view = LeafRenderer(viewsDir: drop.viewsDir)
 
 //try MailClient.sendTestEmail()
 
-AdminController(drop: drop)
+let adminC = AdminController(drop: drop)
 
 
 drop.get() { req in
@@ -128,6 +133,14 @@ drop.post("cancelAppointment") { request in
     try appointment?.save()
     
     return try drop.view.make("cancelAppointment")
+}
+
+drop.post("/search") { req in
+    let query = req.data["search_query"]?.string
+    
+    let doctors = try Doctor.query().filter("name", .contains, query!).all().makeNode()
+    
+    return try drop.view.make("searchResult", Node(node: ["doctors": doctors]))
 }
 
 

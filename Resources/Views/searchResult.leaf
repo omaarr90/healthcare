@@ -1,0 +1,60 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>Patient Reservation System</title>
+
+}
+
+#export("body") {
+#embed("navbar")
+
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+<div class="carousel-inner" role="listbox">
+<div class="item active">
+<img class="first-slide" src="/images/health_bg.jpeg" alt="First slide">
+<div class="container">
+<div class="carousel-caption">
+<p>أهلاٍ بك في موقعنا. هذا الموقع يمكنك من حجز مواعيدك لدى أفضل الأطباء في المملكة. كما يمكنك من تشخيص حالتك المرضية. </p>
+</div>
+</div>
+</div>
+</div>
+</div><!-- /.carousel -->
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing pull-right">
+
+<h1>نتائج البحث</h1>
+
+<table class="table table-reflow">
+    <thead>
+        <tr>
+            <th>اسم الطبيب</th>
+            <th>المستشفى</th>
+            <th>التخصص</th>
+        </tr>
+    </thead>
+    <tbody>
+        #loop(doctors, "doctor") {
+        <tr>
+            <td><a href="/doctors/#(doctor.id)"/>#(doctor.name)</td>
+            <td>#(doctor.hospital)</td>
+            <td>#(doctor.spciality)</td>
+            <td></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

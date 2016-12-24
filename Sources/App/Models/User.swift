@@ -2,7 +2,10 @@ import Vapor
 import VaporPostgreSQL
 import Fluent
 import Auth
-import Tur
+import Turnstile
+import TurnstileCrypto
+import TurnstileWeb
+import HTTP
 
 final class User {
     var id: Node?
@@ -77,3 +80,4 @@ extension User: Auth.User {
         return User(username: "", password: "")
     }
 }
+

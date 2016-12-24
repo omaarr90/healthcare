@@ -17,7 +17,10 @@
 <div class="container marketing pull-right">
 
 <h1> <a href="/admin/cities"/>التحكم بالمدن</h1>
-    <h1> <a href="/admin/diseases"/>التحكم بالامراض</h1>
+<h1> <a href="/admin/diseases"/>التحكم بالامراض</h1>
+<h1> <a href="/admin/doctors"/>التحكم بالاطباء</h1>
+<h1> <a href="/admin/appointments"/>التحكم بالمواعيد</h1>
+<h1> <a href="/admin/symptoms"/>التحكم بالاعراض</h1>
 
 
 <hr class="featurette-divider">

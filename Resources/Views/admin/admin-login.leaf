@@ -1,0 +1,36 @@
+#extend("base")
+
+#export("head") {
+#embed("headercontent")
+<title>لوحة التحكم</title>
+
+}
+
+#export("body") {
+#embed("admin/admin-navbar")
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container pull-right">
+
+<!-- Three columns of text below the carousel -->
+<form action="/adminlogin" method="post">
+<div class="form-group">
+    <input type="text" name="user_name" placeholder="اسم المستخدم">
+</div>
+
+<div class="form-group">
+<input type="password" name="password" placeholder="كلمة المرور">
+</div>
+
+<button type="submit" class="btn btn-primary center-block">تسجيل الدخول</button>
+</form>
+
+<hr class="featurette-divider">
+
+#embed("footer")
+</div><!-- /.container -->
+}

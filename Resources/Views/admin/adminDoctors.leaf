@@ -17,7 +17,7 @@
 <div class="container">
 
 <!-- Three columns of text below the carousel -->
-<h1>قائمة الأمراض</h1>
+<h1>قائمة الأطباء</h1>
 <table class="table table-reflow">
 <thead>
 <tr>
@@ -39,7 +39,7 @@
 <td>#(doctor.email)</td>
 <td>#(doctor.phonenumber)</td>
 <td>#(doctor.hospital)</td>
-<td>#(doctor_spciality)</td>
+<td>#(doctor.spciality)</td>
 <td><a href="/admin/diseases/#(doctor.disease_id)"/>#(doctor.disease_id)</td>
 <td><a href="/admin/cities/#(doctor.city_id)"/>#(doctor.city_id)</td>
 <td></td>

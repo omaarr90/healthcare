@@ -8,54 +8,91 @@
 
 import Vapor
 import HTTP
+import Auth
+import Turnstile
+
 class AdminController
 {
     init(drop: Droplet) {
-        drop.get("/admin/", handler: home)
-        //Cities
-        drop.get("/admin/cities", handler: cities)
-        drop.get("/admin/cities/:cityID", handler: cityDetails)
-        drop.post("/admin/cities/addCity", handler: addCity)
-        drop.post("/admin/cities/deleteCity", handler: deleteCity)
-        drop.post("/admin/cities/editCity", handler: editCity)
         
-        //Diseases
-        drop.get("/admin/diseases", handler: diseases)
-        drop.get("/admin/diseases/:diseaseID", handler: diseaseDetails)
-        drop.post("/admin/diseases/addDisease", handler: addDisease)
-        drop.post("/admin/diseases/deleteDisease", handler: deleteDisease)
-        drop.post("/admin/diseases/editDisease", handler: editDisease)
+        drop.get("/adminlogin") { req in
+            return try drop.view.make("/admin/admin-login")
+        }
+        
+        drop.post("/adminlogin") {req in
+            let username = req.data["user_name"]?.string
+            let password = req.data["password"]?.string
+            
+            let credentils = UsernamePassword(username: username!, password: password!)
+            do {
+                try req.auth.login(credentils, persist: true)
+                return Response(redirect: "/admin/")
+            } catch {
+                return Response(redirect: "/adminlogin")
+            }
+
+        }
+        
+        let error = Abort.custom(status: .forbidden, message: "هذه الصفحة محمية.")
+        let protect = ProtectMiddleware(error: error)
+        let auth = AuthMiddleware(user: User.self)
+        drop.middleware.append(auth)
 
         
-        //Symptoms
-        drop.get("/admin/symptoms", handler: symptoms)
-        drop.get("/admin/symptoms/:symptomID", handler: symptomDetails)
-        drop.post("/admin/symptoms/addSymptom", handler: addSymptom)
-        drop.post("/admin/symptoms/deleteSymptom", handler: deleteSymptom)
-        drop.post("/admin/symptoms/editSymptom", handler: editSymptom)
-
-        //Doctors
-        drop.get("/admin/doctors", handler: doctors)
-        drop.get("/admin/doctors/:doctorID", handler: doctorDetails)
-        drop.post("/admin/doctors/addDoctor", handler: addDoctor)
-        drop.post("/admin/doctors/deleteDoctor", handler: deleteDoctor)
-        drop.post("/admin/doctors/editDoctor", handler: editDoctor)
-
-        //Appointments
-        drop.get("/admin/appointments", handler: appointments)
-        drop.get("/admin/appointments/:appointmentID", handler: appointmentDetails)
-        drop.post("/admin/appointments/addAppointment", handler: addAppointment)
-        drop.post("/admin/appointments/deleteAppointment", handler: deleteAppointment)
-        drop.post("/admin/appointments/editAppointment", handler: editAppointment)
-
+        drop.grouped(protect).group("admin") { secure in
+            secure.get() { req in
+                return try drop.view.make("/admin/adminHome")
+            }
+            secure.get("/signout") { req in
+                try req.auth.logout()
+                let response = Response(redirect: "/adminlogin")
+                return response
+            }
+            
+            //Cities
+            secure.get("/cities", handler: cities)
+            secure.get("/cities/:cityID", handler: cityDetails)
+            secure.post("/cities/addCity", handler: addCity)
+            secure.post("/cities/deleteCity", handler: deleteCity)
+            secure.post("/cities/editCity", handler: editCity)
+            
+            //Diseases
+            secure.get("/diseases", handler: diseases)
+            secure.get("/diseases/:diseaseID", handler: diseaseDetails)
+            secure.post("/diseases/addDisease", handler: addDisease)
+            secure.post("/diseases/deleteDisease", handler: deleteDisease)
+            secure.post("/diseases/editDisease", handler: editDisease)
+            
+            
+            //Symptoms
+            secure.get("/symptoms", handler: symptoms)
+            secure.get("/symptoms/:symptomID", handler: symptomDetails)
+            secure.post("/symptoms/addSymptom", handler: addSymptom)
+            secure.post("/symptoms/deleteSymptom", handler: deleteSymptom)
+            secure.post("/symptoms/editSymptom", handler: editSymptom)
+            
+            //Doctors
+            secure.get("/doctors", handler: doctors)
+            secure.get("/doctors/:doctorID", handler: doctorDetails)
+            secure.post("/doctors/addDoctor", handler: addDoctor)
+            secure.post("/doctors/deleteDoctor", handler: deleteDoctor)
+            secure.post("/doctors/editDoctor", handler: editDoctor)
+            
+            //Appointments
+            secure.get("/appointments", handler: appointments)
+            secure.get("/appointments/:appointmentID", handler: appointmentDetails)
+            secure.post("/appointments/addAppointment", handler: addAppointment)
+            secure.post("/appointments/deleteAppointment", handler: deleteAppointment)
+            secure.post("/appointments/editAppointment", handler: editAppointment)
+        }
     }
     
     
     
-    func home(request: Request) throws -> ResponseRepresentable
-    {
-        return try drop.view.make("/admin/adminHome")
-    }
+//    func home(request: Request) throws -> ResponseRepresentable
+//    {
+//        return try drop.view.make("/admin/adminHome")
+//    }
     
     
     // Cities
