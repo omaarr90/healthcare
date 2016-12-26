@@ -15,6 +15,7 @@ class AdminController
 {
     init(drop: Droplet) {
         
+        
         drop.get("/adminlogin") { req in
             return try drop.view.make("/admin/admin-login")
         }

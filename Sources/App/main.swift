@@ -8,6 +8,12 @@ import TurnstileCrypto
 import TurnstileWeb
 import Auth
 
+import TLS
+import Transport
+
+
+setupClient()
+
 let drop = Droplet()
 try drop.addProvider(VaporPostgreSQL.Provider)
 drop.preparations = [Doctor.self, Symptom.self, Disease.self, City.self, Appointment.self, Comment.self, User.self]
