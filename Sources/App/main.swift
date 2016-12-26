@@ -74,7 +74,7 @@ drop.post("selectAppointment") { request in
     
     var appointment = try Appointment.query().filter("id", appointmentID).all().first
     
-    if appointment?.status != "Avaliable" {
+    if appointment?.status != "Available" {
         return try drop.view.make("appointmentConfirmation", Node(node: ["title": "الموعد غير متاح", "message": "لقد تم حجز هذا الموعد مسبقا من فضلك قم بحجز موعد اخر"]))
     }
     
