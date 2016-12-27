@@ -86,7 +86,6 @@ drop.post("selectAppointment") { request in
     
     appointment?.status = "Booked"
     appointment?.token = UUID().uuidString
-    try appointment?.save()
     
     //try MailClient.sendAppointmentConfirmation(to: emailAddress, token: (appointment?.token)!)
     try mailClient.sendAppointmentConfirmation(to: emailAddress, token: (appointment?.token)!)

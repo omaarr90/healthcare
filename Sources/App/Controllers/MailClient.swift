@@ -11,6 +11,7 @@ import SMTP
 import TLS
 import Transport
 
+
 func setupClient() {
     defaultClientConfig = {
         return try TLS.Config(context: try Context(mode: .client), certificates: .none, verifyHost: false, verifyCertificates: false, cipher: .compat)
@@ -35,6 +36,8 @@ class MailClient
     func sendAppointmentConfirmation(to email: String, token: String) throws
     {
         
+        drop.log.warning("OMAR: Entering send Email MEthod")
+        
         let confirmURL = "https://patientdiagnose.herokuapp.com/confirmAppintment?token=\(token)"
         let contentValue = "من فضلك قم باستخدام الرابط التالي لتأكيد الحجز \(confirmURL)"
         
@@ -45,11 +48,15 @@ class MailClient
         let personalizations = SendGridPersonalization(to: to)
         let personalizationsWrapper = SendGridWrapper(personalization: [personalizations], from: from, subject: subject, content: [content])
         
+        drop.log.warning("OMAR: Before JSON Call")
+        
         let jsonBody = try JSON(node: personalizationsWrapper.makeNode()).makeBody()
         
+        drop.log.warning("Before POST CALL Call")
+
         let response = try drop.client.post("https://api.sendgrid.com/v3/mail/send", headers: ["Authorization": "Bearer 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", "Content-Type": "application/json"], body: jsonBody)
         
-        print("\(response)")
+        drop.log.warning("OMAR: Last Line")
 
     }
 }
