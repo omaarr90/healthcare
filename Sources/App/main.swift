@@ -19,10 +19,10 @@ try drop.addProvider(VaporPostgreSQL.Provider)
 drop.preparations = [Doctor.self, Symptom.self, Disease.self, City.self, Appointment.self, Comment.self, User.self]
 drop.view = LeafRenderer(viewsDir: drop.viewsDir)
 
-//try MailClient.sendTestEmail()
-
+let mailClient = MailClient(drop: drop)
 let adminC = AdminController(drop: drop)
 
+try mailClient.sendTestEmail()
 
 drop.get() { req in
     return try drop.view.make("welcome")
@@ -88,7 +88,8 @@ drop.post("selectAppointment") { request in
     appointment?.token = UUID().uuidString
     try appointment?.save()
     
-    try MailClient.sendAppointmentConfirmation(to: emailAddress, token: (appointment?.token)!)
+    //try MailClient.sendAppointmentConfirmation(to: emailAddress, token: (appointment?.token)!)
+    try mailClient.sendAppointmentConfirmation(to: emailAddress, token: (appointment?.token)!)
     
     return try drop.view.make("appointmentConfirmation", Node(node: ["title": "تم حجز هذا الموعد", "message": "لقد قمنا بإرسال بريد الكتروني اليك. من فضلك استخدم الرابط المرفق لتأكيد الموعد"]))
 }
