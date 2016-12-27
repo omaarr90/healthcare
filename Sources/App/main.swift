@@ -12,7 +12,7 @@ import TLS
 import Transport
 
 
-setupClient()
+//setupClient()
 
 let drop = Droplet()
 try drop.addProvider(VaporPostgreSQL.Provider)
