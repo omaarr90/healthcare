@@ -35,8 +35,8 @@ class MailClient
     func sendAppointmentConfirmation(to email: String, token: String) throws
     {
         
-        let confirmURL = "http://172.20.10.13:8088/confirmAppintment?token=\(token)"
-        let contentValue = "body: من فضلك قم باستخدام الرابط التالي لتأكيد الحجز \(confirmURL)"
+        let confirmURL = "https://patientdiagnose.herokuapp.com/confirmAppintment?token=\(token)"
+        let contentValue = "من فضلك قم باستخدام الرابط التالي لتأكيد الحجز \(confirmURL)"
         
         let content = SendGridContent(type: .plain, value: contentValue)
         let subject = "تأكيد حجز الموعد"
