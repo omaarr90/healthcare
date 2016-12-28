@@ -18,6 +18,7 @@ let drop = Droplet()
 try drop.addProvider(VaporPostgreSQL.Provider)
 drop.preparations = [Doctor.self, Symptom.self, Disease.self, City.self, Appointment.self, Comment.self, User.self]
 drop.view = LeafRenderer(viewsDir: drop.viewsDir)
+//drop.middleware.append(LoginRedirectMiddleware(loginRoute: "/adminlogin"))
 
 let mailClient = MailClient(drop: drop)
 let adminC = AdminController(drop: drop)
@@ -66,9 +67,10 @@ drop.post("doctorappointments") { request in
 }
 
 drop.get("doctors", Int.self) { request, doctorID in
+    
     let doctor = try Doctor.query().filter("id", doctorID).first()
     let comments = try Comment.query().filter("doctor_id", doctorID).all().makeNode()
-    let appointments = try Appointment.query().filter("doctor_id", (doctor!.id!)).all().makeNode()
+    let appointments = try Appointment.query().filter("doctor_id", (doctor!.id!)).filter("status", "Available").all().makeNode()
     return try drop.view.make("doctor", Node(node: ["doctor": doctor, "appointments": appointments, "comments": comments]))
 
 }
@@ -79,6 +81,13 @@ drop.post("selectAppointment") { request in
     }
     
     var appointment = try Appointment.query().filter("id", appointmentID).all().first
+    let ddoctor = (appointment?.doctor!)//!["id"]
+    do {
+        try Email.validate(input: emailAddress)
+    }catch {
+        
+    }
+    
     
     if appointment?.status != "Available" {
         return try drop.view.make("appointmentConfirmation", Node(node: ["title": "الموعد غير متاح", "message": "لقد تم حجز هذا الموعد مسبقا من فضلك قم بحجز موعد اخر"]))
@@ -89,6 +98,8 @@ drop.post("selectAppointment") { request in
     
     //try MailClient.sendAppointmentConfirmation(to: emailAddress, token: (appointment?.token)!)
     try mailClient.sendAppointmentConfirmation(to: emailAddress, token: (appointment?.token)!)
+    
+    try appointment?.save()
     
     return try drop.view.make("appointmentConfirmation", Node(node: ["title": "تم حجز هذا الموعد", "message": "لقد قمنا بإرسال بريد الكتروني اليك. من فضلك استخدم الرابط المرفق لتأكيد الموعد"]))
 }

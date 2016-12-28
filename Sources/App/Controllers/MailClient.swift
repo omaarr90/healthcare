@@ -38,7 +38,7 @@ class MailClient
         
         print("OMAR: Entering send Email MEthod")
         
-        let confirmURL = "https://patientdiagnose.herokuapp.com/confirmAppintment?token=\(token)"
+        let confirmURL = "http://localhost:8088/confirmAppintment?token=\(token)"
         let contentValue = "من فضلك قم باستخدام الرابط التالي لتأكيد الحجز \(confirmURL)"
         
         let content = SendGridContent(type: .plain, value: contentValue)

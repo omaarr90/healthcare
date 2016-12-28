@@ -50,9 +50,8 @@
                 </div>
                 <div class="form-group">
                     <label for="emailAddress">البريد الالكتروني</label>
-                    <input type="email" class="form-control" name="emailAddress" id="emailAddress" placeholder="البريد الالكتروني">
-                        </div>
-
+                    <input type="email" class="form-control" name="emailAddress" id="id="inputEmail"" placeholder="البريد الالكتروني">
+                
                 <button type="submit" class="btn btn-primary center-block">تأكيد</button>
                 
             </form>
@@ -60,6 +59,13 @@
     </div><!-- /.row -->
     
     
+    <button type="button" class="btn btn-primary btn-lg btn-block" id="contactButton">Submit
+        <span class="glyphicon glyphichttp://www.launchbit.com/taz/9533-6729-111/on-arrow-right">
+        </span>
+    </button>
+    
+
+
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-10">
