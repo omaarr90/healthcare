@@ -38,7 +38,7 @@ class MailClient
         
         print("OMAR: Entering send Email MEthod")
         
-        let confirmURL = "http://localhost:8088/confirmAppintment?token=\(token)"
+        let confirmURL = "https://patientdiagnose.herokuapp.com/confirmAppintment?token=\(token)"
         let contentValue = "من فضلك قم باستخدام الرابط التالي لتأكيد الحجز \(confirmURL)"
         
         let content = SendGridContent(type: .plain, value: contentValue)
@@ -47,16 +47,9 @@ class MailClient
         let to = [SendGridEmail(email: email)]
         let personalizations = SendGridPersonalization(to: to)
         let personalizationsWrapper = SendGridWrapper(personalization: [personalizations], from: from, subject: subject, content: [content])
-        
-        print("OMAR: Before JSON Call")
-        
+                
         let jsonBody = try JSON(node: personalizationsWrapper.makeNode()).makeBody()
         
-        print("Before POST CALL Call")
-
-        let response = try drop.client.post("https://api.sendgrid.com/v3/mail/send", headers: ["Authorization": "Bearer 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", "Content-Type": "application/json"], body: jsonBody)
-        
-        print("OMAR: Last Line")
-
+        let _ = try drop.client.post("https://api.sendgrid.com/v3/mail/send", headers: ["Authorization": "Bearer \(Env.get("SENDGRID_APIKEY")!)", "Content-Type": "application/json"], body: jsonBody)
     }
 }

@@ -15,17 +15,17 @@
     
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img class="first-slide" src="/images/bg2.jpeg" alt="First slide">
+            <img class="first-slide" src="/images/bg2.jpeg" alt="First slide" />
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>#(doctor.name)</h1>
-                        <img src="/images/default-avatar.png" alt="Circle Image" class="img-circle img-responsive center-block">
+                        <img src="/images/default-avatar.png" alt="Circle Image" class="img-circle img-responsive center-block" />
                             <br />
-                            <p>#(doctor.hospital)</p></ br>
+                            <p>#(doctor.hospital)</p><br />
                             <p>#(doctor.spciality)</p>
-                    </div>
+                            </div>
                 </div>
-        </div>
+                </div>
     </div>
 </div><!-- /.carousel -->
 
@@ -39,6 +39,9 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-10">
+            #if(appointments.isEmpty) {
+            <h3>هذا الدكتور ليس لديه مواعيد.</h3>
+            } ##else() {
             <form action="/selectAppointment" method="post">
                 <div class="form-group">
                     <label for="appointmentSelected">أختر التاريخ والوقت:</label>
@@ -48,24 +51,19 @@
                         }
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group has-danger">
                     <label for="emailAddress">البريد الالكتروني</label>
-                    <input type="email" class="form-control" name="emailAddress" id="id="inputEmail"" placeholder="البريد الالكتروني">
+                    <input type="email" class="form-control" name="emailAddress" id="inputEmail" placeholder="البريد الالكتروني" />
+                    <p style="color: red">#(emailError)</p>
+                </div>
                 
                 <button type="submit" class="btn btn-primary center-block">تأكيد</button>
                 
             </form>
+            }
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
     
-    
-    <button type="button" class="btn btn-primary btn-lg btn-block" id="contactButton">Submit
-        <span class="glyphicon glyphichttp://www.launchbit.com/taz/9533-6729-111/on-arrow-right">
-        </span>
-    </button>
-    
-
-
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-10">
@@ -78,7 +76,7 @@
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
     
-    <hr class="featurette-divider">
+    <hr class="featurette-divider" />
     
     #embed("footer")
     

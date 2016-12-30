@@ -7,6 +7,7 @@ import Turnstile
 import TurnstileCrypto
 import TurnstileWeb
 import Auth
+import Sessions
 
 import TLS
 import Transport
@@ -18,7 +19,10 @@ let drop = Droplet()
 try drop.addProvider(VaporPostgreSQL.Provider)
 drop.preparations = [Doctor.self, Symptom.self, Disease.self, City.self, Appointment.self, Comment.self, User.self]
 drop.view = LeafRenderer(viewsDir: drop.viewsDir)
-//drop.middleware.append(LoginRedirectMiddleware(loginRoute: "/adminlogin"))
+
+let memory = MemorySessions()
+let sessions = SessionsMiddleware(sessions: memory)
+drop.middleware.append(sessions)
 
 let mailClient = MailClient(drop: drop)
 let adminC = AdminController(drop: drop)
@@ -69,9 +73,20 @@ drop.post("doctorappointments") { request in
 drop.get("doctors", Int.self) { request, doctorID in
     
     let doctor = try Doctor.query().filter("id", doctorID).first()
+    let doctorO = try doctor?.makeNode()
     let comments = try Comment.query().filter("doctor_id", doctorID).all().makeNode()
-    let appointments = try Appointment.query().filter("doctor_id", (doctor!.id!)).filter("status", "Available").all().makeNode()
-    return try drop.view.make("doctor", Node(node: ["doctor": doctor, "appointments": appointments, "comments": comments]))
+    let appointments = try Appointment.query().filter("doctor_id", (doctor!.id!)).all().makeNode()
+    var context = ["doctor": doctorO, "appointments": appointments, "comments": comments]
+    
+    if let name = try request.session().data["emailIsValid"]?.string {
+        if name == "true" {
+            context["emailError"] = "* البريد الالكتروني المدخل غير صحيح".makeNode()
+        }
+    }
+    
+    try request.session().data["emailIsValid"] = ""
+    
+    return try drop.view.make("doctor", Node(node: context))
 
 }
 
@@ -81,13 +96,13 @@ drop.post("selectAppointment") { request in
     }
     
     var appointment = try Appointment.query().filter("id", appointmentID).all().first
-    let ddoctor = (appointment?.doctor!)//!["id"]
-    do {
-        try Email.validate(input: emailAddress)
-    }catch {
-        
-    }
+    let doctor = (appointment?.doctor!)!
     
+    if !emailAddress.passes(Email.self){
+        try request.session().data["emailIsValid"] = "true"
+        let response = Response(redirect: "/doctors/\(doctor.int!)")
+        return response
+    }
     
     if appointment?.status != "Available" {
         return try drop.view.make("appointmentConfirmation", Node(node: ["title": "الموعد غير متاح", "message": "لقد تم حجز هذا الموعد مسبقا من فضلك قم بحجز موعد اخر"]))
