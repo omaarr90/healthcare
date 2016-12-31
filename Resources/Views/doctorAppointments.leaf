@@ -36,15 +36,17 @@
 <!-- Three columns of text below the carousel -->
 <div class="row">
 <div class="col-lg-10">
+    #if(doctors) {
+    <h1>لا يتوفر أطباء يمكنهم المساعدة في الوقت الحالي</h1>
+
+    } ##else() {
 <h2>هؤلاء الأطباء يمكنهم المساعدة</h2>
 
 #loop(doctors, "doctor") {
 <h1><a href="doctors/#(doctor.id)">#(doctor.name)</a></h1>
 
 }
-
-
-</form>
+}
 
 </div><!-- /.col-lg-4 -->
 </div><!-- /.row -->
