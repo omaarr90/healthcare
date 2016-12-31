@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html dir="RTL">
+<head>
     #import("head")
+</head>
+<body>
     #import("body")
+</body>
 </html>

@@ -39,7 +39,7 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-10">
-            #if(appointments.isEmpty) {
+            #if(appointments) {
             <h3>هذا الدكتور ليس لديه مواعيد.</h3>
             } ##else() {
             <form action="/selectAppointment" method="post">

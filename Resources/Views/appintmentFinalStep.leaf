@@ -47,7 +47,7 @@
             <form action="/postComment" method="post">
                 <div class="form-group">
                     <label for="comment">هل انتهيت من زيارة الدكتور؟ أعطنا انطباعك</label>
-                    <input type="email" class="form-control" name="comment" id="comment" placeholder="تعليقك">
+                    <input type="text" class="form-control" name="comment" id="comment" placeholder="تعليقك">
                         </div>
                 <input type="hidden" name="doctor_id" value="#(doctor_id)">
                 <button type="submit" class="btn btn-primary center-block">تأكيد</button>

@@ -27,14 +27,11 @@ drop.middleware.append(sessions)
 let mailClient = MailClient(drop: drop)
 let adminC = AdminController(drop: drop)
 
-try mailClient.sendTestEmail()
-
 drop.get() { req in
     return try drop.view.make("welcome")
 }
 
 drop.get("diagnosis") { request in
-//    let sympts = try ["Sympt1", "Sympt2", "Sympt3"].makeNode()
     let sympts = try Symptom.all().makeNode()
     return try drop.view.make("diagnosis", Node(node: ["sympts": sympts]))
 }
