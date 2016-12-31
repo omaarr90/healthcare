@@ -5,8 +5,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li id="homenav" class="active"><a href="/">الرئيسية</a></li>
-            <li id="appoinnav" ><a href="appointments">المواعيد</a></li>
-            <li id="diagnav" ><a href="diagnosis">الأعراض</a></li>
+            <li id="appoinnav" ><a href="/appointments">المواعيد</a></li>
+            <li id="diagnav" ><a href="/diagnosis">الأعراض</a></li>
         </ul>
         <div class="col-sm-3 col-md-3">
             <form action="/search" method="post" class="navbar-form" role="search">
